@@ -5,6 +5,9 @@ api-version: 1.14
 authors: [ DEAD_POOLIO_ ]
 depend:
   - DPP-Core
+softdepend:
+  - LuckPerms
+  - Vault
 commands:
   dsp:
     aliases: [simpleprefix]

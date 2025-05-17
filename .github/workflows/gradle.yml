@@ -1,4 +1,4 @@
-name: DP-SimplePrefix
+name: Release
 on:
   push:
 jobs:
