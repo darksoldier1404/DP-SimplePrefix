@@ -1,0 +1,23 @@
+Settings:
+  prefix: "&f[ &bDP-SimplePrefix &f] "
+
+  # this option is max prefix amount that player can have
+  maxPrefix: 30
+
+  # <name> is the name of the prefix
+  # <prefix> is the prefix with color
+  couponNameFormat: "<name> - &f[ &b<prefix> &f]"
+
+  PrefixList:
+    chimichanga: "&f[ &cchimichanga! &f]"
+
+  # LuckPerms
+  enable_luckperm_prefix: false
+
+  # priority must not be changed after server is officially launched, change it only in test server
+  luckperm_prefix_priority: 0
+
+  # this option is used to delete all player's prefix node by priority.
+  # if you set this to true, all player's prefix node will be deleted every time the plugin is reloaded.
+  # this option is for cleaning up the prefix node.
+  lubkperm_prefix_delete_by_priority: false
