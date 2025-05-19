@@ -1,12 +1,31 @@
+![](https://dpnw.site/assets/img/logo_white.png)
+
+![](https://dpnw.site/assets/img/desc_card/dppcore.jpg)
+
+# All DP-Plugins depend on the [DPP-Core](https://dpnw.site/plugin.html?plugin=DPP-Core) plugin. <br>Please make sure to install [DPP-Core](https://dpnw.site/plugin.html?plugin=DPP-Core)
+
+# Discord
+### Join our Discord server to get support and stay updated with the latest news and updates.
+
+### If you have any questions or suggestions, please join our Discord server.
+
+### If you find any bugs, please report them using the inquiry channel.
+
+<span style="font-size: 18px;">**Discord Invite: https://discord.gg/JnMCqkn2FX**</span>
+
+<br>
+<br>
+
 <details>
 	<summary>korean</summary>
 
-# DP-SimplePrefix 플러그인 소개
+![](https://dpnw.site/assets/img/desc_card/desc.jpg)
 
+# DP-SimplePrefix 플러그인 소개
 DP-SimplePrefix는 마인크래프트 서버에서 칭호를 쉽게 관리할 수 있는 플러그인입니다. GUI를 통해 칭호 목록을 직관적으로 확인하고, 간편한 칭호 쿠폰 설정이 가능하며, LuckPerms의 칭호 노드와 연동하여 칭호를 효율적으로 관리할 수 있습니다.
 
 ## 플러그인 특징
-- **GUI 기반 칭호 목록**: GUI를 통해 쉽게 확인가능.
+- **GUI 기반 칭호 목록**: GUI를 통해 쉽게 확인 가능.
 - **간편한 쿠폰 설정**: 특정 칭호 쿠폰을 간단히 설정 가능.
 - **LuckPerms 연동**: LuckPerms의 칭호 노드와 연동되어 칭호를 효율적으로 관리 가능.
 - **기본 칭호 설정**: 모든 플레이어에게 자동으로 부여되는 기본 칭호 설정 가능.
@@ -16,6 +35,11 @@ DP-SimplePrefix는 마인크래프트 서버에서 칭호를 쉽게 관리할 �
 - DPP-Core
 - LuckPerms
 - Vault
+
+<br>
+<br>
+
+![](https://dpnw.site/assets/img/desc_card/cmd-perm.jpg)
 
 ## 명령어
 ### 관리자 명령어
@@ -46,10 +70,13 @@ DP-SimplePrefix는 마인크래프트 서버에서 칭호를 쉽게 관리할 �
 - 칭호 장착 (유저): `/dsp equip VIP`
 - 칭호 해제 (유저): `/dsp unequip`
 - 소유 칭호 확인 (유저): `/dsp my`
+
 </details>
 
 <details open>
 	<summary>english</summary>
+
+![](https://dpnw.site/assets/img/desc_card/desc.jpg)
 
 # DP-SimplePrefix Plugin Introduction
 
@@ -57,7 +84,7 @@ DP-SimplePrefix is a Minecraft plugin designed to manage prefixes in a server wi
 
 ## Plugin Features
 - **GUI Prefix List**: View prefixes with GUI.
-- **Coupon Configuration**: Easily set up coupon items for specific prefixes coupons.
+- **Coupon Configuration**: Easily set up coupon items for specific prefixes.
 - **LuckPerms Integration**: Integrates with LuckPerms' prefix nodes for efficient prefix management.
 - **Default Prefix Support**: Set a default prefix to be automatically assigned to all players.
 - **Player-Friendly Commands**: Simple commands for players to equip, unequip, or view their prefixes.
@@ -66,6 +93,11 @@ DP-SimplePrefix is a Minecraft plugin designed to manage prefixes in a server wi
 - DPP-Core
 - LuckPerms
 - Vault
+
+<br>
+<br>
+
+![](https://dpnw.site/assets/img/desc_card/cmd-perm.jpg)
 
 ## Commands
 ### Admin Commands
@@ -96,4 +128,14 @@ DP-SimplePrefix is a Minecraft plugin designed to manage prefixes in a server wi
 - Equip a prefix (player): `/dsp equip VIP`
 - Unequip a prefix (player): `/dsp unequip`
 - View owned prefixes (player): `/dsp my`
+
 </details>
+
+<br>
+<br>
+
+![](https://dpnw.site/assets/img/desc_card/screenshot.jpg)
+
+![](https://dpnw.site/assets/img/screenshot/DP-SimplePrefix/1.jpg)
+
+![](https://dpnw.site/assets/img/screenshot/DP-SimplePrefix/2.jpg)
