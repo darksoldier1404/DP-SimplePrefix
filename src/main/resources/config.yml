@@ -6,7 +6,7 @@ Settings:
 
   # <name> is the name of the prefix
   # <prefix> is the prefix with color
-  couponNameFormat: "<name> - &f[ &b<prefix> &f]"
+  couponNameFormat: "<name> - <prefix>"
 
   PrefixList:
     chimichanga: "&f[ &cchimichanga! &f]"

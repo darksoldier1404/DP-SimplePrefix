@@ -1,64 +1,67 @@
 package com.darksoldier1404.dsp.commands;
 
+import com.darksoldier1404.dppc.lang.DLang;
 import com.darksoldier1404.dsp.*;
 import org.bukkit.command.*;
 import org.bukkit.entity.*;
 import com.darksoldier1404.dsp.functions.*;
+
 import java.util.*;
+
 import org.bukkit.*;
+
 import java.util.stream.*;
+
 import org.jetbrains.annotations.*;
 
-public class DSPCommand implements CommandExecutor, TabCompleter
-{
+public class DSPCommand implements CommandExecutor, TabCompleter {
     private final String prefix;
+    private final DLang lang;
 
     public DSPCommand() {
+        this.lang = SimplePrefix.getInstance().lang;
         this.prefix = SimplePrefix.getInstance().prefix;
     }
 
     public boolean onCommand(@NotNull final CommandSender sender, @NotNull final Command command, @NotNull final String label, @NotNull final String[] args) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage(this.prefix + "this command can only be used by players.");
+            sender.sendMessage(this.prefix + lang.get("player_only"));
             return false;
         }
-        final Player p = (Player)sender;
+        final Player p = (Player) sender;
         if (args.length == 0) {
             if (p.isOp()) {
-                sender.sendMessage(this.prefix + "/dsp create <prefix> - create a prefix.");
-                sender.sendMessage(this.prefix + "/dsp set <prefix> - set the prefix that will be displayed in the chat.");
-                sender.sendMessage(this.prefix + "/dsp delete <prefix> - delete the prefix.");
-                sender.sendMessage(this.prefix + "/dsp coupon (prefix) - set the coupon item of the prefix. (if prefix is not entered, it is set as a global coupon.)");
-                sender.sendMessage(this.prefix + "/dsp givecoupon <prefix> (username) - give the coupon item of the prefix.");
-                sender.sendMessage(this.prefix + "/dsp default <prefix> - set the default prefix, and it will be given to all players.");
-                sender.sendMessage(this.prefix + "/dsp list - list all prefixes.");
+                sender.sendMessage(this.prefix + lang.get("help_create"));
+                sender.sendMessage(this.prefix + lang.get("help_set"));
+                sender.sendMessage(this.prefix + lang.get("help_delete"));
+                sender.sendMessage(this.prefix + lang.get("help_coupon"));
+                sender.sendMessage(this.prefix + lang.get("help_givecoupon"));
+                sender.sendMessage(this.prefix + lang.get("help_default"));
+                sender.sendMessage(this.prefix + lang.get("help_list"));
             }
-            sender.sendMessage(this.prefix + "/dsp equip <prefix> - equip the prefix.");
-            sender.sendMessage(this.prefix + "/dsp unequip - unequip the prefix.");
-            sender.sendMessage(this.prefix + "/dsp my - show your all prefix.");
+            sender.sendMessage(this.prefix + lang.get("help_equip"));
+            sender.sendMessage(this.prefix + lang.get("help_unequip"));
+            sender.sendMessage(this.prefix + lang.get("help_my"));
             return false;
         }
         if (args[0].equals("equip")) {
             if (args.length == 1) {
-                sender.sendMessage(this.prefix + "/dsp equip <prefix> - equip the prefix.");
+                sender.sendMessage(this.prefix + lang.get("help_equip"));
                 return false;
             }
             if (args.length == 2) {
                 DSPFunction.equipPrefix(p, args[1]);
                 return false;
             }
-            sender.sendMessage(this.prefix + "/dsp equip <prefix> - equip the prefix.");
+            sender.sendMessage(this.prefix + lang.get("help_equip"));
             return false;
-        }
-        else if (args[0].equals("unequip")) {
+        } if (args[0].equals("unequip")) {
             if (args.length == 1) {
                 DSPFunction.unequipPrefix(p);
                 return false;
             }
-            sender.sendMessage(this.prefix + "/dsp unequip - unequip the prefix.");
-            return false;
-        }
-        else {
+            sender.sendMessage(this.prefix + lang.get("help_unequip"));
+        } else {
             if (!args[0].equals("my")) {
                 if (p.isOp()) {
                     if (args[0].equals("create")) {
@@ -68,24 +71,21 @@ public class DSPCommand implements CommandExecutor, TabCompleter
                         }
                         DSPFunction.createPrefix(p, args[1]);
                         return false;
-                    }
-                    else if (args[0].equals("set")) {
+                    } else if (args[0].equals("set")) {
                         if (args.length == 1) {
                             sender.sendMessage(this.prefix + "/dsp set <prefix>");
                             return false;
                         }
                         DSPFunction.openSetPrefixGUI(p, args[1]);
                         return false;
-                    }
-                    else if (args[0].equals("delete")) {
+                    } else if (args[0].equals("delete")) {
                         if (args.length == 1) {
                             sender.sendMessage(this.prefix + "/dsp delete <prefix>");
                             return false;
                         }
                         DSPFunction.deletePrefix(p, args[1]);
                         return false;
-                    }
-                    else if (args[0].equals("coupon")) {
+                    } else if (args[0].equals("coupon")) {
                         if (args.length == 1) {
                             DSPFunction.openGlobalCouponSetting(p);
                             return false;
@@ -95,8 +95,7 @@ public class DSPCommand implements CommandExecutor, TabCompleter
                             return false;
                         }
                         return false;
-                    }
-                    else if (args[0].equalsIgnoreCase("givecoupon")) {
+                    } else if (args[0].equalsIgnoreCase("givecoupon")) {
                         if (args.length == 1) {
                             sender.sendMessage(this.prefix + "/dsp givecoupon <prefix> (username)");
                             return false;
@@ -110,28 +109,26 @@ public class DSPCommand implements CommandExecutor, TabCompleter
                         }
                         final Player target = Bukkit.getPlayer(args[2]);
                         if (target == null) {
-                            sender.sendMessage(this.prefix + "The player is not online.");
+                            sender.sendMessage(this.prefix + lang.get("player_online"));
                             return false;
                         }
                         DSPFunction.getPrefixCoupon(target, args[1]);
                         return false;
-                    }
-                    else if (args[0].equals("default")) {
+                    } else if (args[0].equals("default")) {
                         if (args.length == 1) {
                             sender.sendMessage(this.prefix + "/dsp default <prefix>");
                             return false;
                         }
                         DSPFunction.setDefaultPrefix(p, args[1]);
                         return false;
-                    }
-                    else {
+                    } else {
                         if (args[0].equals("list")) {
                             DSPFunction.showAllPrefixList(p);
                             return false;
                         }
                         if (args[0].equalsIgnoreCase("reload")) {
                             DSPFunction.initConfig();
-                            sender.sendMessage(this.prefix + "The configuration has been reloaded.");
+                            sender.sendMessage(this.prefix + lang.get("config_reload"));
                             return false;
                         }
                     }
@@ -142,8 +139,8 @@ public class DSPCommand implements CommandExecutor, TabCompleter
                 DSPFunction.showPrefixList(p);
                 return false;
             }
-            return false;
         }
+        return false;
     }
 
     @Nullable
@@ -153,8 +150,7 @@ public class DSPCommand implements CommandExecutor, TabCompleter
                 return Arrays.asList("create", "set", "delete", "coupon", "givecoupon", "default", "list", "reload", "equip", "unequip", "my");
             }
             return Arrays.asList("equip", "unequip", "my");
-        }
-        else {
+        } else {
             if (args.length == 2 && !args[0].equalsIgnoreCase("list")) {
                 return DSPFunction.getPrefixList();
             }

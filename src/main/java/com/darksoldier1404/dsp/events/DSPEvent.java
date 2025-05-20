@@ -42,7 +42,7 @@ public class DSPEvent implements Listener
             final String prefix = e.getMessage();
             this.plugin.config.set("Settings.PrefixList." + name, prefix);
             ConfigUtils.savePluginConfig(this.plugin, this.plugin.config);
-            p.sendMessage(this.plugin.prefix + name + "prefix is set : " + ColorUtils.applyColor(prefix));
+            p.sendMessage(this.plugin.prefix + name + plugin.lang.get("prefix_display_set") + ColorUtils.applyColor(prefix));
             DSPFunction.currentEditPrefix.remove(p.getUniqueId());
             return;
         }
