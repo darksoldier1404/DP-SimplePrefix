@@ -163,7 +163,7 @@ public class DSPFunction {
         if (SimplePrefix.isLuckpermMode) {
             LuckpermAPI.delPrefix(player, 0);
         }
-        player.sendMessage(prefix + plugin.lang.get("prefix_unequipped."));
+        player.sendMessage(prefix + plugin.lang.get("prefix_unequipped"));
         ConfigUtils.saveCustomData(plugin, data, player.getUniqueId().toString(), "users");
     }
 
