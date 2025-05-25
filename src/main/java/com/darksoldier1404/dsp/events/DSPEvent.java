@@ -24,6 +24,7 @@ public class DSPEvent implements Listener
     public void onJoin(final PlayerJoinEvent e) {
         this.plugin.udata.put(e.getPlayer().getUniqueId(), ConfigUtils.initUserData(this.plugin, e.getPlayer().getUniqueId().toString(), "users"));
         ConfigUtils.saveCustomData(this.plugin, this.plugin.udata.get(e.getPlayer().getUniqueId()), e.getPlayer().getUniqueId().toString(), "users");
+        DSPFunction.syncPrefix(e.getPlayer());
     }
 
     @EventHandler
