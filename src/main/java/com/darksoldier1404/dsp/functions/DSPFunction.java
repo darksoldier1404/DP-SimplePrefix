@@ -154,6 +154,17 @@ public class DSPFunction {
         }
     }
 
+    public static void syncPrefix(Player player) {
+        YamlConfiguration data = plugin.udata.get(player.getUniqueId());
+        String prefixName = data.getString("Player.Prefix");
+        if (prefixName == null || prefixName.isEmpty()) {
+            return;
+        }
+        if (SimplePrefix.isLuckpermMode) {
+            LuckpermAPI.setPrefix(player, getPrefix(prefixName), 0);
+        }
+    }
+
     public static void unequipPrefix(Player player) {
         YamlConfiguration data = plugin.udata.get(player.getUniqueId());
         if (data.getString("Player.Prefix") == null) {
@@ -233,21 +244,22 @@ public class DSPFunction {
         return NBT.setStringTag(item, "dsp.prefix", name);
     }
 
+    @Deprecated // This logic will be removed
     public static void setDefaultPrefix(Player player, String name) {
-        plugin.config.set("Settings.DefaultPrefix", name);
-        ConfigUtils.savePluginConfig(plugin, plugin.config);
-        player.sendMessage(prefix + name + plugin.lang.get("set_default"));
-
-        for (YamlConfiguration data : plugin.udata.values()) {
-            List<String> prefixList = data.getStringList("Player.PrefixList");
-            if (!prefixList.contains(name)) {
-                prefixList.add(name);
-                data.set("Player.PrefixList", prefixList);
-                if (data.getString("Player.Prefix") == null) {
-                    data.set("Player.Prefix", name);
-                }
-            }
-        }
+//        plugin.config.set("Settings.DefaultPrefix", name);
+//        ConfigUtils.savePluginConfig(plugin, plugin.config);
+//        player.sendMessage(prefix + name + plugin.lang.get("set_default"));
+//
+//        for (YamlConfiguration data : plugin.udata.values()) {
+//            List<String> prefixList = data.getStringList("Player.PrefixList");
+//            if (!prefixList.contains(name)) {
+//                prefixList.add(name);
+//                data.set("Player.PrefixList", prefixList);
+//                if (data.getString("Player.Prefix") == null) {
+//                    data.set("Player.Prefix", name);
+//                }
+//            }
+//        }
     }
 
     public static String giveDefaultPrefix(Player player) {
