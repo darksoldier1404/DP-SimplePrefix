@@ -14,7 +14,7 @@ public class SimplePrefix extends JavaPlugin
     private static SimplePrefix plugin;
     public YamlConfiguration config;
     public Map<UUID, YamlConfiguration> udata = new HashMap<>();
-    public String prefix;
+    public static String prefix;
     public static boolean isLuckpermMode = true;
     public static int prefixPriority = 0;
     public static DLang lang;
@@ -32,7 +32,7 @@ public class SimplePrefix extends JavaPlugin
         DSPFunction.initConfig();
         lang = new DLang(config.getString("Settings.Lang") == null ? "Korean" : config.getString("Settings.Lang"), plugin);
         getServer().getPluginManager().registerEvents(new DSPEvent(), plugin);
-        getCommand("simpleprefix").setExecutor(new DSPCommand());
+        getCommand("dsp").setExecutor(new DSPCommand().getExecutor());
     }
 
     public void onDisable() {

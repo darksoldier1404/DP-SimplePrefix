@@ -146,6 +146,7 @@ public class DSPFunction {
             player.sendMessage(prefix + name + plugin.lang.get("prefix_equipped"));
             ConfigUtils.saveCustomData(plugin, data, player.getUniqueId().toString(), "users");
             if (SimplePrefix.isLuckpermMode) {
+                removeLuckpermPrefix(player);
                 LuckpermAPI.setPrefix(player, getPrefix(name), 0);
             }
         } else {
@@ -337,5 +338,11 @@ public class DSPFunction {
 
     public static void removeAllLuckpermPrefix() {
         Arrays.stream(Bukkit.getOfflinePlayers()).collect(Collectors.toList()).forEach(player -> LuckpermAPI.delPrefix(player, plugin.prefixPriority));
+    }
+
+    public static void removeLuckpermPrefix(Player player) {
+        if (SimplePrefix.isLuckpermMode) {
+            LuckpermAPI.delPrefix(player, plugin.prefixPriority);
+        }
     }
 }
