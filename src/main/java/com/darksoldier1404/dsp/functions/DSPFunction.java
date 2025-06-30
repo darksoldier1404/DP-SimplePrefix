@@ -2,6 +2,7 @@ package com.darksoldier1404.dsp.functions;
 
 import com.darksoldier1404.dppc.api.inventory.DInventory;
 import com.darksoldier1404.dppc.api.luckperms.LuckpermAPI;
+import com.darksoldier1404.dppc.api.placeholder.PlaceholderBuilder;
 import com.darksoldier1404.dppc.lang.DLang;
 import com.darksoldier1404.dppc.utils.ColorUtils;
 import com.darksoldier1404.dppc.utils.ConfigUtils;
@@ -36,7 +37,7 @@ public class DSPFunction {
         plugin.lang = new DLang(plugin.config.getString("Settings.Lang") == null ? "Korean" : plugin.config.getString("Settings.Lang"), plugin);
         plugin.isLuckpermMode = plugin.config.getBoolean("Settings.enable_luckperm_prefix");
         plugin.prefixPriority = plugin.config.getInt("Settings.luckperm_prefix_priority");
-        if(plugin.config.getBoolean("Settings.lubkperm_prefix_delete_by_priority")) {
+        if (plugin.config.getBoolean("Settings.lubkperm_prefix_delete_by_priority")) {
             removeAllLuckpermPrefix();
         }
     }
@@ -97,7 +98,7 @@ public class DSPFunction {
             }
         }
 
-        DInventory inventory = new DInventory(null, plugin.lang.get("prefix_title"), 54, true, plugin);
+        DInventory inventory = new DInventory(plugin.lang.get("prefix_title"), 54, true, plugin);
         ItemStack pane = NBT.setStringTag(new ItemStack(Material.BLACK_STAINED_GLASS_PANE), "page", "true");
         ItemStack prev = NBT.setStringTag(new ItemStack(Material.PINK_DYE), "prev", "true");
         ItemStack current = NBT.setStringTag(new ItemStack(Material.PAPER), "current", "true");
@@ -130,7 +131,7 @@ public class DSPFunction {
         }
 
         inventory.update();
-        player.openInventory(inventory);
+        player.openInventory(inventory.getInventory());
     }
 
     public static void equipPrefix(Player player, String name) {
@@ -288,7 +289,7 @@ public class DSPFunction {
             return;
         }
 
-        DInventory inventory = new DInventory(null, plugin.lang.get("coupon_setting_title"), 27, plugin);
+        DInventory inventory = new DInventory(plugin.lang.get("coupon_setting_title"), 27, plugin);
         inventory.setObj(Tuple.of(name, SettingType.INDIVIDUAL_COUPON));
 
         ItemStack pane = new ItemStack(Material.BLACK_STAINED_GLASS_PANE);
@@ -299,11 +300,11 @@ public class DSPFunction {
         ItemStack coupon = plugin.config.getItemStack("PrefixCoupon." + name + ".Coupon");
         inventory.setItem(13, coupon != null ? coupon : new ItemStack(Material.AIR));
 
-        player.openInventory(inventory);
+        player.openInventory(inventory.getInventory());
     }
 
     public static void openGlobalCouponSetting(Player player) {
-        DInventory inventory = new DInventory(null, plugin.lang.get("global_coupon_setting_title"), 27, plugin);
+        DInventory inventory = new DInventory(plugin.lang.get("global_coupon_setting_title"), 27, plugin);
         inventory.setObj(Tuple.of("Global", SettingType.GLOBAL_COUPON));
 
         ItemStack pane = new ItemStack(Material.BLACK_STAINED_GLASS_PANE);
@@ -314,7 +315,7 @@ public class DSPFunction {
         ItemStack coupon = plugin.config.getItemStack("GlobalPrefixCoupon.Coupon");
         inventory.setItem(13, coupon != null ? coupon : new ItemStack(Material.AIR));
 
-        player.openInventory(inventory);
+        player.openInventory(inventory.getInventory());
     }
 
     public static void saveCouponSetting(Player player, DInventory inventory) {
@@ -356,5 +357,25 @@ public class DSPFunction {
         if (SimplePrefix.isLuckpermMode) {
             LuckpermAPI.delPrefix(player, plugin.prefixPriority);
         }
+    }
+
+    public static void initPlaceholderAPI() {
+        PlaceholderBuilder.Builder pb = new PlaceholderBuilder.Builder(plugin);
+        pb.identifier("dsp");
+        pb.version(plugin.getDescription().getVersion());
+        pb.onRequest(
+                (player, string) -> {
+                    if (string.equals("prefix")) {
+                        YamlConfiguration data = plugin.udata.get(player.getUniqueId());
+                        String prefixName = data.getString("Player.Prefix");
+                        if (prefixName == null || prefixName.isEmpty()) {
+                            return "";
+                        }
+                        return getPrefix(prefixName);
+                    }
+                    return null;
+                }
+        );
+        pb.build();
     }
 }

@@ -26,6 +26,7 @@ public class SimplePrefix extends JavaPlugin
     public void onLoad() {
         plugin = this;
         PluginUtil.addPlugin(plugin, 24491);
+        DSPFunction.initPlaceholderAPI();
     }
 
     public void onEnable() {

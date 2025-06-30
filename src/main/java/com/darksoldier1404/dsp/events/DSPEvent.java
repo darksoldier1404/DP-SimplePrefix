@@ -83,13 +83,13 @@ public class DSPEvent implements Listener
 
     @EventHandler
     public void onInventoryClick(final InventoryClickEvent e) {
-        if (e.getInventory() instanceof DInventory) {
-            final DInventory inv = (DInventory)e.getInventory();
+        if (e.getInventory().getHolder() instanceof DInventory) {
+            final DInventory inv = (DInventory)e.getInventory().getHolder();
             if (inv.isValidHandler(this.plugin)) {
                 if (inv.getObj() != null) {
                     final Tuple<String, SettingType> tpl = (Tuple<String, SettingType>)inv.getObj();
                     if (tpl.getB() == SettingType.INDIVIDUAL_COUPON || tpl.getB() == SettingType.GLOBAL_COUPON) {
-                        if (e.getClickedInventory() instanceof DInventory && e.getSlot() != 13) {
+                        if (e.getClickedInventory().getHolder() instanceof DInventory && e.getSlot() != 13) {
                             e.setCancelled(true);
                         }
                         return;
@@ -107,8 +107,8 @@ public class DSPEvent implements Listener
     @EventHandler
     public void onInventoryClose(final InventoryCloseEvent e) {
         final Player p = (Player)e.getPlayer();
-        if (e.getInventory() instanceof DInventory) {
-            final DInventory inv = (DInventory)e.getInventory();
+        if (e.getInventory().getHolder() instanceof DInventory) {
+            final DInventory inv = (DInventory)e.getInventory().getHolder();
             if (inv.isValidHandler(this.plugin) && inv.getObj() != null) {
                 final Tuple<String, SettingType> tpl = (Tuple<String, SettingType>)inv.getObj();
                 if (tpl.getB() == SettingType.GLOBAL_COUPON) {
