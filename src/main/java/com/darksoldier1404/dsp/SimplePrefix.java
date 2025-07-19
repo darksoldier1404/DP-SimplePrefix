@@ -31,7 +31,7 @@ public class SimplePrefix extends JavaPlugin
 
     public void onEnable() {
         DSPFunction.initConfig();
-        lang = new DLang(config.getString("Settings.Lang") == null ? "Korean" : config.getString("Settings.Lang"), plugin);
+        lang = new DLang(config.getString("Settings.Lang") == null ? "English" : config.getString("Settings.Lang"), plugin);
         getServer().getPluginManager().registerEvents(new DSPEvent(), plugin);
         getCommand("dsp").setExecutor(new DSPCommand().getExecutor());
     }
