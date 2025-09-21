@@ -1,7 +1,7 @@
 name: DP-SimplePrefix
-version: 1.0.1.5
+version: 2.0.0
 main: com.darksoldier1404.dsp.SimplePrefix
-api-version: 1.14
+api-version: 1.16
 authors: [ DEAD_POOLIO_ ]
 depend:
   - DPP-Core

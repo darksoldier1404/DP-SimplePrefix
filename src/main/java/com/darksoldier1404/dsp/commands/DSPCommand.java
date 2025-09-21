@@ -1,8 +1,6 @@
 package com.darksoldier1404.dsp.commands;
 
 import com.darksoldier1404.dppc.builder.command.CommandBuilder;
-import com.darksoldier1404.dppc.lang.DLang;
-import com.darksoldier1404.dsp.SimplePrefix;
 import com.darksoldier1404.dsp.functions.DSPFunction;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandExecutor;
@@ -10,102 +8,111 @@ import org.bukkit.entity.Player;
 
 import java.util.stream.Collectors;
 
+import static com.darksoldier1404.dppc.DPPCore.plugin;
+
 public class DSPCommand {
     private final CommandBuilder commandBuilder;
-    private final String prefix;
-    private final DLang lang;
 
     public DSPCommand() {
-        this.prefix = SimplePrefix.prefix;
-        this.lang = SimplePrefix.lang;
 
-        CommandBuilder builder = new CommandBuilder(prefix);
+        CommandBuilder builder = new CommandBuilder(plugin);
 
-        builder.addSubCommand("equip", lang.get("help_equip"), (player, args) -> {
+        builder.addSubCommand("equip", plugin.getLang().get("help_equip"), (player, args) -> {
             if (args.length == 2) {
                 DSPFunction.equipPrefix((Player) player, args[1]);
             } else {
-                player.sendMessage(prefix + lang.get("help_equip"));
+                player.sendMessage(plugin.getPrefix() + plugin.getLang().get("help_equip"));
             }
+            return true;
         });
 
-        builder.addSubCommand("unequip",  lang.get("help_unequip"), (player, args) -> {
+        builder.addSubCommand("unequip", plugin.getLang().get("help_unequip"), (player, args) -> {
             if (args.length == 1) {
                 DSPFunction.unequipPrefix((Player) player);
             } else {
-                player.sendMessage(prefix + lang.get("help_unequip"));
+                player.sendMessage(plugin.getPrefix() + plugin.getLang().get("help_unequip"));
             }
+            return true;
         });
 
-        builder.addSubCommand("my", lang.get("help_my"), (player, args) -> {
+        builder.addSubCommand("my", plugin.getLang().get("help_my"), (player, args) -> {
             if (args.length == 1) {
                 DSPFunction.showPrefixList((Player) player);
             }
+            return true;
         });
 
         // Admin commands (require dsp.admin permission)
-        builder.addSubCommand("create", "dsp.admin", lang.get("help_create"), (player, args) -> {
+        builder.addSubCommand("create", "dsp.admin", plugin.getLang().get("help_create"), (player, args) -> {
             if (args.length == 1) {
-                player.sendMessage(prefix + lang.get("help_create"));
+                player.sendMessage(plugin.getPrefix() + plugin.getLang().get("help_create"));
             } else {
                 DSPFunction.createPrefix((Player) player, args[1]);
             }
+            return true;
         });
 
-        builder.addSubCommand("set", "dsp.admin", lang.get("help_set"), (player, args) -> {
+        builder.addSubCommand("set", "dsp.admin", plugin.getLang().get("help_set"), (player, args) -> {
             if (args.length == 1) {
-                player.sendMessage(prefix + lang.get("help_set"));
+                player.sendMessage(plugin.getPrefix() + plugin.getLang().get("help_set"));
             } else {
                 DSPFunction.openSetPrefixGUI((Player) player, args[1]);
             }
+            return true;
         });
 
-        builder.addSubCommand("delete", "dsp.admin", lang.get("help_delete"), (player, args) -> {
+        builder.addSubCommand("delete", "dsp.admin", plugin.getLang().get("help_delete"), (player, args) -> {
             if (args.length == 1) {
-                player.sendMessage(prefix + lang.get("help_delete"));
+                player.sendMessage(plugin.getPrefix() + plugin.getLang().get("help_delete"));
             } else {
                 DSPFunction.deletePrefix((Player) player, args[1]);
             }
+            return true;
         });
 
-        builder.addSubCommand("coupon", "dsp.admin",  lang.get("help_coupon"), (player, args) -> {
+        builder.addSubCommand("coupon", "dsp.admin", plugin.getLang().get("help_coupon"), (player, args) -> {
             if (args.length == 1) {
                 DSPFunction.openGlobalCouponSetting((Player) player);
             } else if (args.length == 2) {
                 DSPFunction.openCouponSetting((Player) player, args[1]);
             }
+            return true;
         });
 
-        builder.addSubCommand("givecoupon", "dsp.admin",  lang.get("help_givecoupon"), (player, args) -> {
+        builder.addSubCommand("givecoupon", "dsp.admin", plugin.getLang().get("help_givecoupon"), (player, args) -> {
             if (args.length == 1) {
-                player.sendMessage(prefix + lang.get("help_givecoupon"));
+                player.sendMessage(plugin.getPrefix() + plugin.getLang().get("help_givecoupon"));
             } else if (args.length == 2) {
                 DSPFunction.getPrefixCoupon((Player) player, args[1]);
             } else if (args.length == 3) {
                 Player target = Bukkit.getPlayer(args[2]);
                 if (target == null) {
-                    player.sendMessage(prefix + lang.get("player_online"));
+                    player.sendMessage(plugin.getPrefix() + plugin.getLang().get("player_online"));
                 } else {
                     DSPFunction.getPrefixCoupon(target, args[1]);
                 }
             }
+            return true;
         });
 
-        builder.addSubCommand("default", "dsp.admin",  lang.get("help_default"), (player, args) -> {
+        builder.addSubCommand("default", "dsp.admin", plugin.getLang().get("help_default"), (player, args) -> {
             if (args.length == 1) {
-                player.sendMessage(prefix + lang.get("help_default"));
+                player.sendMessage(plugin.getPrefix() + plugin.getLang().get("help_default"));
             } else {
                 DSPFunction.setDefaultPrefix((Player) player, args[1]);
             }
+            return true;
         });
 
-        builder.addSubCommand("list", "dsp.admin",  lang.get("help_list"), (player, args) -> {
+        builder.addSubCommand("list", "dsp.admin", plugin.getLang().get("help_list"), (player, args) -> {
             DSPFunction.showAllPrefixList((Player) player);
+            return true;
         });
 
-        builder.addSubCommand("reload", "dsp.admin",  lang.get("config_reload"), (player, args) -> {
-            DSPFunction.initConfig();
-            player.sendMessage(prefix + lang.get("config_reload"));
+        builder.addSubCommand("reload", "dsp.admin", plugin.getLang().get("config_reload"), (player, args) -> {
+            plugin.reload();
+            player.sendMessage(plugin.getPrefix() + plugin.getLang().get("config_reload"));
+            return true;
         });
 
         builder.addTabCompletion("equip", args -> DSPFunction.getPrefixList());
@@ -123,7 +130,7 @@ public class DSPCommand {
         });
 
         builder.addTabCompletion("default", args -> DSPFunction.getPrefixList());
-        builder.setNoSubCommandsMessage(prefix + lang.get("no_commands_available"));
+        builder.setNoSubCommandsMessage(plugin.getPrefix() + plugin.getLang().get("no_commands_available"));
         this.commandBuilder = builder;
     }
 
