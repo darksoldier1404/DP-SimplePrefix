@@ -30,7 +30,7 @@ public class SimplePrefix extends DPlugin {
 
     public void onLoad() {
         PluginUtil.addPlugin(plugin, 24491);
-        udata = loadDataContainer(new DataContainer<UUID, YamlConfiguration>(this, DataType.USER, "users"), null);
+        udata = loadDataContainer(new DataContainer<>(this, DataType.USER, "users"));
         DSPFunction.initPlaceholderAPI();
     }
 
