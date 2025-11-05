@@ -40,7 +40,7 @@ public class DSPFunction {
             return;
         }
         plugin.getConfig().set("Settings.PrefixList." + name, "temp");
-        plugin.saveDataContainer();
+        plugin.saveConfig();
         player.sendMessage(plugin.getPrefix() + name + plugin.getLang().get("prefix_create"));
     }
 
@@ -50,7 +50,7 @@ public class DSPFunction {
             return;
         }
         plugin.getConfig().set("Settings.PrefixList." + name, null);
-        plugin.saveDataContainer();
+        plugin.saveConfig();
         player.sendMessage(plugin.getPrefix() + name + plugin.getLang().get("prefix_delete"));
     }
 
@@ -169,7 +169,8 @@ public class DSPFunction {
             LuckpermAPI.delPrefix(player, 0);
         }
         player.sendMessage(plugin.getPrefix() + plugin.getLang().get("prefix_unequipped"));
-        plugin.saveDataContainer();
+        plugin.udata.put(player.getUniqueId(), data);
+        plugin.udata.save(player.getUniqueId());
     }
 
     public static boolean givePrefix(Player player, String name) {
@@ -188,8 +189,8 @@ public class DSPFunction {
         prefixList.add(name);
         data.set("Player.PrefixList", prefixList);
         plugin.udata.put(player.getUniqueId(), data);
+        plugin.udata.save(player.getUniqueId());
         player.sendMessage(plugin.getPrefix() + name + plugin.getLang().get("prefix_added"));
-        plugin.saveDataContainer();
         return true;
     }
 
@@ -235,24 +236,6 @@ public class DSPFunction {
 
         item.setItemMeta(meta);
         return NBT.setStringTag(item, "dsp.prefix", name);
-    }
-
-    @Deprecated // This logic will be removed
-    public static void setDefaultPrefix(Player player, String name) {
-//        plugin.getConfig().set("Settings.DefaultPrefix", name);
-//        plugin.saveDataContainer();
-//        player.sendMessage(prefix + name + plugin.getLang().get("set_default"));
-//
-//        for (YamlConfiguration data : plugin.udata.values()) {
-//            List<String> prefixList = data.getStringList("Player.PrefixList");
-//            if (!prefixList.contains(name)) {
-//                prefixList.add(name);
-//                data.set("Player.PrefixList", prefixList);
-//                if (data.getString("Player.Prefix") == null) {
-//                    data.set("Player.Prefix", name);
-//                }
-//            }
-//        }
     }
 
     public static String giveDefaultPrefix(Player player) {
@@ -314,13 +297,13 @@ public class DSPFunction {
         Tuple<String, SettingType> tuple = (Tuple<String, SettingType>) inventory.getObj();
         plugin.getConfig().set("PrefixCoupon." + tuple.getA() + ".Coupon", inventory.getItem(13));
         player.sendMessage(plugin.getPrefix() + plugin.getLang().get("coupon_set"));
-        plugin.saveDataContainer();
+        plugin.saveConfig();
     }
 
     public static void saveGlobalCouponSetting(Player player, DInventory inventory) {
         plugin.getConfig().set("GlobalPrefixCoupon.Coupon", inventory.getItem(13));
         player.sendMessage(plugin.getPrefix() + plugin.getLang().get("coupon_set"));
-        plugin.saveDataContainer();
+        plugin.saveConfig();
     }
 
     public static boolean hasIndividualCoupon(String name) {

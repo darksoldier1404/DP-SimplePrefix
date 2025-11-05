@@ -26,7 +26,7 @@ public class DSPEvent implements Listener {
 
     @EventHandler
     public void onQuit(final PlayerQuitEvent e) {
-        plugin.saveDataContainer();
+        plugin.udata.save(e.getPlayer().getUniqueId());
     }
 
     @EventHandler

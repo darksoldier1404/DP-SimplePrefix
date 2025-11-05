@@ -95,15 +95,6 @@ public class DSPCommand {
             return true;
         });
 
-        builder.addSubCommand("default", "dsp.admin", plugin.getLang().get("help_default"), (player, args) -> {
-            if (args.length == 1) {
-                player.sendMessage(plugin.getPrefix() + plugin.getLang().get("help_default"));
-            } else {
-                DSPFunction.setDefaultPrefix((Player) player, args[1]);
-            }
-            return true;
-        });
-
         builder.addSubCommand("list", "dsp.admin", plugin.getLang().get("help_list"), (player, args) -> {
             DSPFunction.showAllPrefixList((Player) player);
             return true;

@@ -1,5 +1,6 @@
 package com.darksoldier1404.dsp;
 
+import com.darksoldier1404.dppc.annotation.DPPCoreVersion;
 import com.darksoldier1404.dppc.data.DPlugin;
 import com.darksoldier1404.dppc.data.DataContainer;
 import com.darksoldier1404.dppc.data.DataType;
@@ -12,6 +13,7 @@ import com.darksoldier1404.dsp.functions.*;
 import com.darksoldier1404.dsp.events.*;
 import com.darksoldier1404.dsp.commands.*;
 
+@DPPCoreVersion(since = "5.3.0")
 public class SimplePrefix extends DPlugin {
     public static SimplePrefix plugin;
     public DataContainer<UUID, YamlConfiguration> udata;
@@ -41,6 +43,6 @@ public class SimplePrefix extends DPlugin {
     }
 
     public void onDisable() {
-        saveDataContainer();
+        saveAllData();
     }
 }
