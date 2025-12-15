@@ -149,6 +149,10 @@ public class DSPFunction {
 
     public static void syncPrefix(Player player) {
         YamlConfiguration data = plugin.udata.get(player.getUniqueId());
+        if(data == null) {
+            data = new YamlConfiguration();
+            plugin.udata.put(player.getUniqueId(), data);
+        }
         String prefixName = data.getString("Player.Prefix");
         if (prefixName == null || prefixName.isEmpty()) {
             return;

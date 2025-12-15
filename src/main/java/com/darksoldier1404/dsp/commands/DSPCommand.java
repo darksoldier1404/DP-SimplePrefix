@@ -8,7 +8,8 @@ import org.bukkit.entity.Player;
 
 import java.util.stream.Collectors;
 
-import static com.darksoldier1404.dppc.DPPCore.plugin;
+import static com.darksoldier1404.dsp.SimplePrefix.plugin;
+
 
 public class DSPCommand {
     private final CommandBuilder commandBuilder;
